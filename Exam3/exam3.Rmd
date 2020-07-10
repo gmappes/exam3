@@ -1,0 +1,84 @@
+---
+title: "Exam 3"
+author: "Grace Mappes"
+date: "7/9/2020"
+output: word_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+
+```
+# 1. Clear the environment
+```{r}
+rm(list=ls(all=TRUE))
+```
+
+# 2. Find and import inequality_gini variable
+```{r}
+# load tidycensus and tidyverse
+library(tidycensus)
+library(tidyverse)
+census_api_key("c58d5ca6d3b34101ed3642a20ef24a2550335faa",
+                install = FALSE,
+              overwrite = TRUE)
+
+# load variable from 2010
+v10 <- load_variables(year = 2010, "acs5") 
+
+# load variable from 2015
+v15 <- load_variables(year = 2015,
+"acs5") 
+
+# see head() of inequality_panel
+head(inequality_panel)
+```
+
+# 5. Demonstrate that inequality_panel and inequality_long have the same number of observations
+```{r}
+summary(inequality_panel)
+summary(inequality_long)
+```
+
+
+# 8. Import data on GDP in USD from 2006 - 2007 using WDI package
+```{r}
+library(WDI)
+gdp_current = WDI(country = "all",
+                indicator =c("NY.GDP.MKTP.CD"),# indicator from web
+                start = 2006, end = 2007, extra = FALSE, cache = NULL)
+```
+
+
+# 10. Shiny app info
+
+The main components of a Shiny App are the UI, server, and shinyApp itself. The UI is composed of inputs, or what the user inputs into the interface, and outputs, or what the server returns to the user depending on the input. The server is also composed of inputs and outputs, and it tells R how to output everything specified in the UI. The shinyApp is composed of the UI and server working together, and is executed through `shinyApp(ui = ui,server = server)`
+
+
+# 11. Pull PDF from webpage
+```{r}
+#First be sure libraries all loaded
+
+library(pdftools)
+library(tidyr)
+library(tidytext)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+
+# import pdf from webpage
+armeniatext = pdf_text(pdf = "https://pdf.usaid.gov/pdf_docs/PA00TNMG.pdf")
+```
+
+# 12. Convert armeniatext into a data frame
+```{r}
+# convert character vector to data frame
+armeniatext = as.data.frame(armeniatext, stringsAsFactors = FALSE)
+```
+
+
+
+
+# Link to GitHub Repo: Exam3
+https://github.com/gmappes/exam3
